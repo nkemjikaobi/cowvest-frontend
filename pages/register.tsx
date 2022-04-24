@@ -6,12 +6,42 @@ import { useRouter } from 'next/router';
 import { BsArrowRight } from 'react-icons/bs';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Register: NextPage = () => {
 	const router = useRouter();
+
 	const [showPassword, setShowPassword] = useState<boolean>(false);
+	const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+	const [user, setUser] = useState({
+		first_name: '',
+		last_name: '',
+		username: '',
+		password: '',
+		email: '',
+	});
+
+	const handleChange = (e: any) => {
+		const { name, value } = e.target;
+		setUser({ ...user, [name]: value });
+	};
+
+	const handleSubmit = async (e: any) => {
+		e.preventDefault();
+
+		//Validation
+		const hasEmptyFields = Object.values(user).some(element => element === '');
+
+		if (hasEmptyFields) {
+			return toast.error('Please fill in all fields');
+		}
+		if (user.password !== passwordConfirm) {
+			return toast.error('Passwords do not match!');
+		}
+	};
 	return (
 		<BasePageLayout title='Register'>
+			<Toaster position='top-right' />
 			<nav className='flex items-center justify-between mt-12 px-5 md:px-20'>
 				<div
 					className='flex items-center cursor-pointer hover:text-blue-500'
@@ -40,6 +70,8 @@ const Register: NextPage = () => {
 						className='bg-gray-200 mb-8 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
 						type='text'
 						placeholder='firstname'
+						name='first_name'
+						onChange={handleChange}
 					/>
 				</div>
 				<div>
@@ -47,6 +79,8 @@ const Register: NextPage = () => {
 						className='bg-gray-200 p-5 mb-8 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
 						type='text'
 						placeholder='lastname'
+						name='last_name'
+						onChange={handleChange}
 					/>
 				</div>
 				<div>
@@ -54,6 +88,8 @@ const Register: NextPage = () => {
 						className='bg-gray-200 p-5 mb-8 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
 						type='text'
 						placeholder='username'
+						name='username'
+						onChange={handleChange}
 					/>
 				</div>
 				<div>
@@ -61,6 +97,8 @@ const Register: NextPage = () => {
 						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
 						type='email'
 						placeholder='email'
+						name='email'
+						onChange={handleChange}
 					/>
 				</div>
 				<div className='relative'>
@@ -68,6 +106,8 @@ const Register: NextPage = () => {
 						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black my-5'
 						type={`${showPassword ? 'text' : 'password'}`}
 						placeholder='password'
+						name='password'
+						onChange={handleChange}
 					/>
 					{showPassword ? (
 						<AiOutlineEyeInvisible
@@ -86,6 +126,8 @@ const Register: NextPage = () => {
 						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black my-5'
 						type={`${showPassword ? 'text' : 'password'}`}
 						placeholder='confirm password'
+						name='password_confirm'
+						onChange={e => setPasswordConfirm(e.target.value)}
 					/>
 					{showPassword ? (
 						<AiOutlineEyeInvisible
@@ -107,11 +149,12 @@ const Register: NextPage = () => {
 					</Link>
 				</div>
 				<div className='flex justify-center'>
-					<Link href='/register'>
-						<a className='bg-white flex items-center justify-center p-5 w-1/3 border border-black rounded-md text-black my-5 hover:bg-blue-500 hover:text-white '>
-							Create Account
-						</a>
-					</Link>
+					<button
+						onClick={e => handleSubmit(e)}
+						className='bg-white flex items-center justify-center p-5 w-1/3 border border-black rounded-md text-black my-5 hover:bg-blue-500 hover:text-white '
+					>
+						Create Account
+					</button>
 				</div>
 			</div>
 		</BasePageLayout>

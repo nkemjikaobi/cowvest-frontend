@@ -6,12 +6,34 @@ import { useRouter } from 'next/router';
 import { BsArrowRight } from 'react-icons/bs';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Home: NextPage = () => {
 	const router = useRouter();
 	const [showPassword, setShowPassword] = useState<boolean>(false);
+	const [user, setUser] = useState({
+		email: '',
+		password: '',
+	});
+
+	const handleChange = (e: any) => {
+		const { name, value } = e.target;
+		setUser({ ...user, [name]: value });
+	};
+
+	const handleSubmit = async (e: any) => {
+		e.preventDefault();
+
+		//Validation
+		const hasEmptyFields = Object.values(user).some(element => element === '');
+
+		if (hasEmptyFields) {
+			return toast.error('Please fill in all fields');
+		}
+	};
 	return (
 		<BasePageLayout title='Cowvest Home Page'>
+			<Toaster position='top-right' />
 			<nav className='flex items-center justify-between mt-12 px-5 md:px-20'>
 				<div
 					className='flex items-center cursor-pointer hover:text-blue-500'
@@ -33,6 +55,8 @@ const Home: NextPage = () => {
 						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
 						type='email'
 						placeholder='Email Address'
+						name='email'
+						onChange={handleChange}
 					/>
 				</div>
 				<div className='relative'>
@@ -40,6 +64,8 @@ const Home: NextPage = () => {
 						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black my-5'
 						type={`${showPassword ? 'text' : 'password'}`}
 						placeholder='Password'
+						name='password'
+						onChange={handleChange}
 					/>
 					{showPassword ? (
 						<AiOutlineEyeInvisible
@@ -54,11 +80,12 @@ const Home: NextPage = () => {
 					)}
 				</div>
 				<div className='flex justify-center'>
-					<Link href='#'>
-						<a className='bg-black flex items-center justify-center p-5 w-1/3 rounded-md text-white mt-4 hover:bg-blue-500 hover:text-white hover:border hover:border-black'>
-							Sign In <BsArrowRight className='ml-4' />
-						</a>
-					</Link>
+					<button
+						onClick={e => handleSubmit(e)}
+						className='bg-black flex items-center justify-center p-5 w-1/3 rounded-md text-white mt-4 hover:bg-blue-500 hover:text-white hover:border hover:border-black'
+					>
+						Sign In <BsArrowRight className='ml-4' />
+					</button>
 				</div>
 				<div className='flex justify-center'>
 					<Link href='/register'>
