@@ -1,4 +1,5 @@
 import BasePageLayout from 'components/BasePageLayout';
+import BudgetCard from 'components/BudgetCard';
 import DetailCard from 'components/DetailCard';
 import CreateBudget from 'components/modals/CreateBudget';
 import FundWallet from 'components/modals/FundWallet';
@@ -48,6 +49,11 @@ const DashboardPage = () => {
 							</button>
 						</div>
 						<hr />
+						<div className=' grid grid-cols-3 gap-4 mt-16 mr-4'>
+							<BudgetCard name='Transport' amount='40000' progress={60} />
+							<BudgetCard name='Groceries' amount='430000' progress={30} />
+							<BudgetCard name='Miscellaneous' amount='20000' progress={75} />
+						</div>
 					</div>
 				</div>
 			</div>

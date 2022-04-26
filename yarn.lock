@@ -144,6 +144,11 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
+"@ramonak/react-progress-bar@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@ramonak/react-progress-bar/-/react-progress-bar-4.4.0.tgz#094ce2275599cc43349ca11f21fb6efa25a84bc0"
+  integrity sha512-/djk0ZzQZXd2x6uMJ1YL5EeFBN1uJQVFcV5NrP1B29m31LL6xb5ahbpz255m3bFY3ZHpI7awE6L4SlfBW4mDWw==
+
 "@rushstack/eslint-patch@1.0.8":
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.0.8.tgz#be3e914e84eacf16dbebd311c0d0b44aa1174c64"
