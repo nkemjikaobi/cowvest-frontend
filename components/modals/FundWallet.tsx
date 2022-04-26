@@ -19,6 +19,7 @@ const FundWallet = ({ setFundWallet }: any) => {
 						className='p-5 text-black border border-gray-300 rounded-md  mb-4 focus:outline-none'
 						onChange={e => setAmount(e.target.value)}
 						value={amount}
+						placeholder='30,000'
 					/>
 				</div>
 				<button className='flex items-center mb-4 hover:text-blue-900'>
