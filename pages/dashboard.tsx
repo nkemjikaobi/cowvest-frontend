@@ -1,6 +1,7 @@
 import BasePageLayout from 'components/BasePageLayout';
 import BudgetCard from 'components/BudgetCard';
 import DetailCard from 'components/DetailCard';
+import AddExpense from 'components/modals/AddExpense';
 import CreateBudget from 'components/modals/CreateBudget';
 import FundWallet from 'components/modals/FundWallet';
 import SideBar from 'components/SideBar';
@@ -9,12 +10,13 @@ import React, { useState } from 'react';
 const DashboardPage = () => {
 	const [fundWallet, setFundWallet] = useState<boolean>(false);
 	const [createBudget, setCreateBudget] = useState<boolean>(false);
+	const [addExpense, setAddExpense] = useState<boolean>(false);
 	return (
 		<BasePageLayout title='Dashboard'>
 			<div
-				className={`grid grid-cols-6 gap-4 ${fundWallet && 'blur-lg'} ${
-					createBudget && 'blur-lg'
-				}`}
+				className={`grid grid-cols-6 gap-4 ${addExpense && 'blur-lg'} ${
+					fundWallet && 'blur-lg'
+				} ${createBudget && 'blur-lg'}`}
 			>
 				<div className='bg-black text-white h-[100vh]'>
 					<SideBar />
@@ -50,9 +52,9 @@ const DashboardPage = () => {
 						</div>
 						<hr />
 						<div className=' grid grid-cols-3 gap-4 mt-16 mr-4'>
-							<BudgetCard name='Transport' amount='40000' progress={60} />
-							<BudgetCard name='Groceries' amount='430000' progress={30} />
-							<BudgetCard name='Miscellaneous' amount='20000' progress={75} />
+							<BudgetCard name='Transport' amount='40000' progress={60} setAddExpense={setAddExpense} />
+							<BudgetCard name='Groceries' amount='430000' progress={30} setAddExpense={setAddExpense} />
+							<BudgetCard name='Miscellaneous' amount='20000' progress={75} setAddExpense={setAddExpense} />
 						</div>
 					</div>
 				</div>
@@ -65,6 +67,11 @@ const DashboardPage = () => {
 			{createBudget && (
 				<div className='fixed left-[30%] top-[30%] w-[40%]'>
 					<CreateBudget setCreateBudget={setCreateBudget} />
+				</div>
+			)}
+			{addExpense && (
+				<div className='fixed left-[30%] top-[30%] w-[40%]'>
+					<AddExpense setAddExpense={setAddExpense} />
 				</div>
 			)}
 		</BasePageLayout>
