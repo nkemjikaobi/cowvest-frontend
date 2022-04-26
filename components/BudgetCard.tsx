@@ -3,8 +3,10 @@ import formatNumberWithCommas from 'helpers/formatNumberWithCommas';
 import React from 'react';
 import { GiMoneyStack } from 'react-icons/gi';
 import ProgressBar from '@ramonak/react-progress-bar';
+import { useRouter } from 'next/router';
 
 const BudgetCard = ({ name, amount, progress, setAddExpense }: any) => {
+	const router = useRouter();
 	return (
 		<div className='bg-black drop-shadow-md rounded-lg p-5'>
 			<div className='flex justify-between items-center'>
@@ -38,7 +40,10 @@ const BudgetCard = ({ name, amount, progress, setAddExpense }: any) => {
 					>
 						Add Expense
 					</button>
-					<button className='border bg-purple-900 border-black px-5 py-3 rounded-lg hover:bg-blue-900'>
+					<button
+						className='border bg-purple-900 border-black px-5 py-3 rounded-lg hover:bg-blue-900'
+						onClick={() => router.push('/dashboard/expenses')}
+					>
 						View Expenses
 					</button>
 				</div>

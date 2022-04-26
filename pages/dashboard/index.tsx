@@ -52,9 +52,24 @@ const DashboardPage = () => {
 						</div>
 						<hr />
 						<div className=' grid grid-cols-3 gap-4 mt-16 mr-4'>
-							<BudgetCard name='Transport' amount='40000' progress={60} setAddExpense={setAddExpense} />
-							<BudgetCard name='Groceries' amount='430000' progress={30} setAddExpense={setAddExpense} />
-							<BudgetCard name='Miscellaneous' amount='20000' progress={75} setAddExpense={setAddExpense} />
+							<BudgetCard
+								name='Transport'
+								amount='40000'
+								progress={60}
+								setAddExpense={setAddExpense}
+							/>
+							<BudgetCard
+								name='Groceries'
+								amount='430000'
+								progress={30}
+								setAddExpense={setAddExpense}
+							/>
+							<BudgetCard
+								name='Miscellaneous'
+								amount='20000'
+								progress={75}
+								setAddExpense={setAddExpense}
+							/>
 						</div>
 					</div>
 				</div>
