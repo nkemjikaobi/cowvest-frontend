@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import React, { useContext } from 'react';
-import { FaUsers } from 'react-icons/fa';
 import { MdLogout } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { GiMoneyStack, GiTakeMyMoney } from 'react-icons/gi';
@@ -41,8 +40,7 @@ const SideBar = () => {
 			<button
 				className='flex items-center mt-16 hover:text-[#498feb] cursor-pointer'
 				onClick={() => {
-					logout();
-					router.push('/');
+					logout(router);
 				}}
 			>
 				<MdLogout className='text-3xl mr-4' /> Logout

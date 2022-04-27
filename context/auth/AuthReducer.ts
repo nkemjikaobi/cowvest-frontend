@@ -139,7 +139,6 @@ const AuthReducer = (state: any, action: any) => {
 				loading: false,
 				user: null,
 				error: action.payload,
-				message: 'Logout successful',
 			};
 
 		case SET_LOADING:

@@ -34,7 +34,7 @@ const AuthState = (props: any) => {
 		message: null,
 		budgets: null,
 		expenses: [],
-		allExpenses: []
+		allExpenses: [],
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -243,7 +243,10 @@ const AuthState = (props: any) => {
 	const setLoading = () => dispatch({ type: SET_LOADING });
 
 	//Logout User
-	const logout = () => dispatch({ type: LOGOUT });
+	const logout = (router: any) => {
+		dispatch({ type: LOGOUT });
+		router.push('/');
+	};
 
 	//Clear Errors
 	const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
@@ -275,7 +278,7 @@ const AuthState = (props: any) => {
 				createBudget,
 				addExpense,
 				deleteBudget,
-				getAllExpenses
+				getAllExpenses,
 			}}
 		>
 			{props.children}

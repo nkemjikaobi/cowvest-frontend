@@ -23,11 +23,11 @@ const Home: NextPage = () => {
 			for (let i = 0; i < error.length; i++) {
 				toast.error(error[i].msg);
 			}
-			clearErrors();
 		} else if (error !== null) {
 			toast.error(error);
-			clearErrors();
 		}
+		clearErrors();
+
 		//eslint-disable-next-line
 	}, [error]);
 
