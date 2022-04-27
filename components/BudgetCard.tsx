@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import AuthContext from 'context/auth/AuthContext';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 	const router = useRouter();
@@ -14,12 +16,28 @@ const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 	const authContext = useContext(AuthContext);
 	const { getExpenses } = authContext;
 
+	const [progress, setProgress] = useState<number>(0);
+
 	const handleViewExpenses = () => {
 		getExpenses(budget._id);
 		setTimeout(() => {
 			router.push('/dashboard/expenses');
 		}, 1000);
 	};
+
+	const calculateProgress = (startingPrice: any, amountAvailable: any) => {
+		const data = (parseInt(amountAvailable) / parseInt(startingPrice)) * 100;
+		const result = Math.round(data);
+		return result;
+	};
+
+	useEffect(() => {
+		if (budget) {
+			const result = calculateProgress(budget.start_price, budget.max_spending);
+			setProgress(result);
+		}
+		//eslint-disable-next-line
+	}, [budget]);
 	return (
 		<div className='bg-black drop-shadow-md rounded-lg p-5'>
 			<div className='flex justify-between items-center'>
@@ -37,7 +55,11 @@ const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 				{budget.max_spending ? formatNumberWithCommas(budget.max_spending) : 0}
 			</p>
 			<div>
-				<ProgressBar completed={43} className='mb-4' baseBgColor='#0F172B' />
+				<ProgressBar
+					completed={progress ? progress : 0}
+					className='mb-4'
+					baseBgColor='#0F172B'
+				/>
 			</div>
 			<div>
 				<div className='mb-4 flex justify-between items-center'>
