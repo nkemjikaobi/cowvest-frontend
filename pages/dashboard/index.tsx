@@ -8,6 +8,7 @@ import SideBar from 'components/SideBar';
 import React, { useState, useContext } from 'react';
 import AuthContext from 'context/auth/AuthContext';
 import { useEffect } from 'react';
+import { ImSpinner9 } from 'react-icons/im';
 
 const DashboardPage = () => {
 	const [fundWallet, setFundWallet] = useState<boolean>(false);
@@ -15,7 +16,7 @@ const DashboardPage = () => {
 	const [addExpense, setAddExpense] = useState<boolean>(false);
 
 	const authContext = useContext(AuthContext);
-	const { user, getBudgets, budgets } = authContext;
+	const { user, getBudgets, budgets, loading } = authContext;
 
 	useEffect(() => {
 		getBudgets();
@@ -72,24 +73,23 @@ const DashboardPage = () => {
 						</div>
 						<hr />
 						<div className=' grid grid-cols-3 gap-4 mt-16 mr-4'>
-							<BudgetCard
-								name='Transport'
-								amount='40000'
-								progress={60}
-								setAddExpense={setAddExpense}
-							/>
-							<BudgetCard
-								name='Groceries'
-								amount='430000'
-								progress={30}
-								setAddExpense={setAddExpense}
-							/>
-							<BudgetCard
-								name='Miscellaneous'
-								amount='20000'
-								progress={75}
-								setAddExpense={setAddExpense}
-							/>
+							{loading ? (
+								<>
+									<ImSpinner9 className='animate-spin h-5 w-5 mr-3' />
+									Fetching budgets...
+								</>
+							) : budgets !== null && budgets.length === 0 ? (
+								<div className='text-xl ml2'>You have not created any budget..</div>
+							) : (
+								budgets &&
+								budgets.map((budget: any) => (
+									<BudgetCard
+										budget={budget}
+										key={budget._id}
+										setAddExpense={setAddExpense}
+									/>
+								))
+							)}
 						</div>
 					</div>
 				</div>

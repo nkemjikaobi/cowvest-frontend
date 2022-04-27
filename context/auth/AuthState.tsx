@@ -21,6 +21,7 @@ import {
 	CREATE_BUDGET,
 	ADD_EXPENSE,
 	DELETE_BUDGET,
+	GET_ALL_EXPENSES,
 } from '../types';
 
 const AuthState = (props: any) => {
@@ -33,6 +34,7 @@ const AuthState = (props: any) => {
 		message: null,
 		budgets: null,
 		expenses: null,
+		allExpenses: null
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -182,6 +184,24 @@ const AuthState = (props: any) => {
 		}
 	};
 
+	//Get All Expenses
+	const getAllExpenses = async () => {
+		setLoading();
+
+		try {
+			const res = await customAxios.get('/api/v1/expenses');
+			dispatch({
+				type: GET_ALL_EXPENSES,
+				payload: res.data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: ERROR,
+				payload: err.response.data.msg,
+			});
+		}
+	};
+
 	//Add Expense
 	const addExpense = async (expense: any) => {
 		setLoading();
@@ -241,6 +261,7 @@ const AuthState = (props: any) => {
 				message: state.message,
 				budgets: state.budgets,
 				expenses: state.expenses,
+				allExpenses: state.allExpenses,
 				register,
 				clearErrors,
 				clearMessages,
@@ -252,7 +273,8 @@ const AuthState = (props: any) => {
 				getExpenses,
 				createBudget,
 				addExpense,
-				deleteBudget
+				deleteBudget,
+				getAllExpenses
 			}}
 		>
 			{props.children}

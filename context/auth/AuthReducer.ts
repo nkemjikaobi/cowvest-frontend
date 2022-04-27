@@ -16,6 +16,7 @@ import {
 	ADD_EXPENSE,
 	DELETE_BUDGET,
 	ERROR,
+	GET_ALL_EXPENSES,
 } from '../types';
 
 const AuthReducer = (state: any, action: any) => {
@@ -83,10 +84,16 @@ const AuthReducer = (state: any, action: any) => {
 				expenses: action.payload,
 				loading: false,
 			};
+		case GET_ALL_EXPENSES:
+			return {
+				...state,
+				allExpenses: action.payload,
+				loading: false,
+			};
 		case CREATE_BUDGET:
 			return {
 				...state,
-				budgets: [action.payload, ...state.budgets],
+				budgets: [action.payload.budget, ...state.budgets],
 				message: action.payload.msg,
 				loading: false,
 				user: action.payload.user,
