@@ -1,14 +1,25 @@
 import { CURRENCIES } from 'Constants';
 import formatNumberWithCommas from 'helpers/formatNumberWithCommas';
-import React from 'react';
+import React, { useContext } from 'react';
 import { GiMoneyStack } from 'react-icons/gi';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import AuthContext from 'context/auth/AuthContext';
 
 const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 	const router = useRouter();
+
+	const authContext = useContext(AuthContext);
+	const { getExpenses } = authContext;
+
+	const handleViewExpenses = () => {
+		getExpenses(budget._id);
+		setTimeout(() => {
+			router.push('/dashboard/expenses');
+		}, 1000);
+	};
 	return (
 		<div className='bg-black drop-shadow-md rounded-lg p-5'>
 			<div className='flex justify-between items-center'>
@@ -54,7 +65,7 @@ const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 					</button>
 					<button
 						className='border bg-purple-900 border-black px-5 py-3 rounded-lg hover:bg-blue-900'
-						onClick={() => router.push('/dashboard/expenses')}
+						onClick={() => handleViewExpenses()}
 					>
 						View Expenses
 					</button>

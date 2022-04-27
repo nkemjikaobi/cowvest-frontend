@@ -28,7 +28,7 @@ const SideBar = () => {
 					<GiTakeMyMoney className='text-3xl mr-4' /> Budgets
 				</a>
 			</Link>
-			<Link href='/dashboard/expenses'>
+			<Link href='#'>
 				<a
 					href='#'
 					className={`flex items-center mt-16 hover:text-[#498feb] cursor-pointer ${
