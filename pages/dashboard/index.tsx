@@ -5,12 +5,16 @@ import AddExpense from 'components/modals/AddExpense';
 import CreateBudget from 'components/modals/CreateBudget';
 import FundWallet from 'components/modals/FundWallet';
 import SideBar from 'components/SideBar';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import AuthContext from 'context/auth/AuthContext';
 
 const DashboardPage = () => {
 	const [fundWallet, setFundWallet] = useState<boolean>(false);
 	const [createBudget, setCreateBudget] = useState<boolean>(false);
 	const [addExpense, setAddExpense] = useState<boolean>(false);
+
+	const authContext = useContext(AuthContext);
+	const { user } = authContext;
 	return (
 		<BasePageLayout title='Dashboard'>
 			<div
@@ -22,11 +26,17 @@ const DashboardPage = () => {
 					<SideBar />
 				</div>
 				<div className='col-span-5'>
+					<h3 className='mt-8 text-2xl'>
+						Hello ,{' '}
+						<span className='text-purple-700'>
+							{user && user.first_name} 😌
+						</span>
+					</h3>
 					<div className=' grid grid-cols-3 gap-4 mt-16 mr-4'>
 						<DetailCard
 							name='Balance'
 							icon='ImUsers'
-							count={100000}
+							count={user && user.balance}
 							isCurrency={true}
 						/>
 						<DetailCard name='Budgets' icon='FaUsers' count={5} />

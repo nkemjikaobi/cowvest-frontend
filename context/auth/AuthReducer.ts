@@ -9,9 +9,15 @@ import {
 	LOGOUT,
 	CLEAR_MESSAGES,
 	SET_LOADING,
+	FUND_WALLET,
+	GET_BUDGETS,
+	GET_EXPENSES,
+	CREATE_BUDGET,
+	ADD_EXPENSE,
+	DELETE_BUDGET,
 } from '../types';
 
-const AuthReducer = (state, action) => {
+const AuthReducer = (state: any, action: any) => {
 	switch (action.type) {
 		case USER_LOADED:
 			return {
@@ -56,6 +62,43 @@ const AuthReducer = (state, action) => {
 				loading: false,
 				message: 'Login Successful',
 				token: action.payload.token,
+			};
+		case FUND_WALLET:
+			return {
+				...state,
+				user: action.payload.user,
+				loading: false,
+				message: action.payload.msg,
+			};
+		case GET_BUDGETS:
+			return {
+				...state,
+				budgets: action.payload,
+			};
+		case GET_EXPENSES:
+			return {
+				...state,
+				expenses: action.payload,
+			};
+		case CREATE_BUDGET:
+			return {
+				...state,
+				budgets: [action.payload, ...state.budgets],
+				message: action.payload.msg,
+			};
+		case ADD_EXPENSE:
+			return {
+				...state,
+				expenses: [action.payload, ...state.expenses],
+				message: action.payload.msg,
+			};
+		case DELETE_BUDGET:
+			return {
+				...state,
+				budgets: state.budgets.filter(
+					(budget: any) => budget._id !== action.payload.id
+				),
+				message: action.payload.msg,
 			};
 		case LOGIN_FAIL:
 			localStorage.removeItem('token');

@@ -1,13 +1,10 @@
-export const CONNECT_WALLET = 'CONNECT_WALLET';
-export const CONNECT_GUEST = 'CONNECT_GUEST';
-export const DISCONNECT_WALLET = 'DISCONNECT_WALLET';
-export const LOAD_CONTRACT = 'LOAD_CONTRACT';
-export const CREATE_NFT = 'CREATE_NFT';
-export const FETCH_ALL_NFTS = 'FETCH_ALL_NFTS';
-export const FETCH_SINGLE_NFT = 'FETCH_SINGLE_NFT';
+export const FUND_WALLET = 'FUND_WALLET';
+export const GET_BUDGETS = 'GET_BUDGETS';
+export const CREATE_BUDGET = 'CREATE_BUDGET';
+export const DELETE_BUDGET = 'DELETE_BUDGET';
+export const GET_EXPENSES = 'GET_EXPENSES';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const ERROR = 'ERROR';
-export const CLEAR_ERROR = 'CLEAR_ERROR';
-export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 
 //THIS IS FOR AUTH
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';

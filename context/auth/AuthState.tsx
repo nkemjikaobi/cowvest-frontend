@@ -14,9 +14,16 @@ import {
 	CLEAR_ERRORS,
 	CLEAR_MESSAGES,
 	SET_LOADING,
+	FUND_WALLET,
+	ERROR,
+	GET_BUDGETS,
+	GET_EXPENSES,
+	CREATE_BUDGET,
+	ADD_EXPENSE,
+	DELETE_BUDGET,
 } from '../types';
 
-const AuthState = props => {
+const AuthState = (props: any) => {
 	const initialState = {
 		token: typeof window !== 'undefined' && localStorage.getItem('token'),
 		isAuthenticated: null,
@@ -24,6 +31,8 @@ const AuthState = props => {
 		user: null,
 		error: null,
 		message: null,
+		budgets: null,
+		expenses: null,
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -32,10 +41,11 @@ const AuthState = props => {
 		baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 		headers: {
 			'Content-Type': 'application/json',
-			authorization:
+			authorization: `${
 				typeof window !== 'undefined' && localStorage.token
 					? localStorage.getItem('token')
-					: '',
+					: ''
+			}`,
 		},
 	});
 
@@ -47,7 +57,7 @@ const AuthState = props => {
 				type: USER_LOADED,
 				payload: res.data.user,
 			});
-		} catch (err) {
+		} catch (err: any) {
 			dispatch({
 				type: AUTH_ERROR,
 				payload: err.response.data.msg,
@@ -56,7 +66,7 @@ const AuthState = props => {
 	};
 
 	//Register User
-	const register = async (user, router) => {
+	const register = async (user: any, router: any) => {
 		setLoading();
 
 		try {
@@ -68,7 +78,7 @@ const AuthState = props => {
 
 			//loadUser();
 			router.push('/');
-		} catch (err) {
+		} catch (err: any) {
 			dispatch({
 				type: REGISTER_FAIL,
 				payload: err.response.data.errors
@@ -79,7 +89,7 @@ const AuthState = props => {
 	};
 
 	//Login User
-	const login = async (user, router) => {
+	const login = async (user: any, router: any) => {
 		setLoading();
 
 		try {
@@ -90,12 +100,119 @@ const AuthState = props => {
 			});
 
 			router.push('/dashboard');
-		} catch (err) {
+		} catch (err: any) {
 			dispatch({
 				type: LOGIN_FAIL,
 				payload: err.response.data.errors
 					? err.response.data.errors
 					: err.response.data.msg,
+			});
+		}
+	};
+
+	//Fund Wallet
+	const fundWallet = async (amount: any) => {
+		setLoading();
+
+		try {
+			const res = await customAxios.post('/api/v1/fund', amount);
+			dispatch({
+				type: FUND_WALLET,
+				payload: res.data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: ERROR,
+				payload: err.response.data.msg,
+			});
+		}
+	};
+
+	//Get Budgets
+	const getBudgets = async () => {
+		setLoading();
+
+		try {
+			const res = await customAxios.get('/api/v1/budgets');
+			dispatch({
+				type: GET_BUDGETS,
+				payload: res.data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: ERROR,
+				payload: err.response.data.msg,
+			});
+		}
+	};
+	//Create Budget
+	const createBudget = async (budget: any) => {
+		setLoading();
+
+		try {
+			const res = await customAxios.post('/api/v1/budgets', budget);
+			dispatch({
+				type: CREATE_BUDGET,
+				payload: res.data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: ERROR,
+				payload: err.response.data.msg,
+			});
+		}
+	};
+
+	//Get Expenses
+	const getExpenses = async (budgetId: any) => {
+		setLoading();
+
+		try {
+			const res = await customAxios.get(`/api/v1/expenses/${budgetId}`);
+			dispatch({
+				type: GET_EXPENSES,
+				payload: res.data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: ERROR,
+				payload: err.response.data.msg,
+			});
+		}
+	};
+
+	//Add Expense
+	const addExpense = async (expense: any) => {
+		setLoading();
+
+		try {
+			const res = await customAxios.post('api/v1/expenses', expense);
+			dispatch({
+				type: ADD_EXPENSE,
+				payload: res.data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: ERROR,
+				payload: err.response.data.msg,
+			});
+		}
+	};
+
+	//Delete budget
+	const deleteBudget = async (budgetId: any) => {
+		setLoading();
+
+		try {
+			const res = await customAxios.delete(`/api/v1/expenses/${budgetId}`);
+			dispatch({
+				type: DELETE_BUDGET,
+				payload: res.data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: ERROR,
+				payload: err.response.data.msg,
 			});
 		}
 	};
@@ -121,12 +238,20 @@ const AuthState = props => {
 				user: state.user,
 				error: state.error,
 				message: state.message,
+				budgets: state.budgets,
+				expenses: state.expenses,
 				register,
 				clearErrors,
 				clearMessages,
 				loadUser,
 				login,
 				logout,
+				fundWallet,
+				getBudgets,
+				getExpenses,
+				createBudget,
+				addExpense,
+				deleteBudget
 			}}
 		>
 			{props.children}
