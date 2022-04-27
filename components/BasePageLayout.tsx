@@ -9,7 +9,6 @@ const BasePageLayout = ({ title, children }: any) => {
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && localStorage.token) {
-			console.log('gucci');
 			loadUser();
 		}
 		//eslint-disable-next-line

@@ -15,6 +15,7 @@ import {
 	CREATE_BUDGET,
 	ADD_EXPENSE,
 	DELETE_BUDGET,
+	ERROR,
 } from '../types';
 
 const AuthReducer = (state: any, action: any) => {
@@ -74,23 +75,27 @@ const AuthReducer = (state: any, action: any) => {
 			return {
 				...state,
 				budgets: action.payload,
+				loading: false,
 			};
 		case GET_EXPENSES:
 			return {
 				...state,
 				expenses: action.payload,
+				loading: false,
 			};
 		case CREATE_BUDGET:
 			return {
 				...state,
 				budgets: [action.payload, ...state.budgets],
 				message: action.payload.msg,
+				loading: false,
 			};
 		case ADD_EXPENSE:
 			return {
 				...state,
 				expenses: [action.payload, ...state.expenses],
 				message: action.payload.msg,
+				loading: false,
 			};
 		case DELETE_BUDGET:
 			return {
@@ -99,6 +104,7 @@ const AuthReducer = (state: any, action: any) => {
 					(budget: any) => budget._id !== action.payload.id
 				),
 				message: action.payload.msg,
+				loading: false,
 			};
 		case LOGIN_FAIL:
 			localStorage.removeItem('token');
@@ -131,11 +137,19 @@ const AuthReducer = (state: any, action: any) => {
 			return {
 				...state,
 				error: null,
+				loading: false
+			};
+		case ERROR:
+			return {
+				...state,
+				error: action.payload,
+				loading: false,
 			};
 		case CLEAR_MESSAGES:
 			return {
 				...state,
 				message: null,
+				loading: false,
 			};
 		default:
 			return state;

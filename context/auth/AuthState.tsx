@@ -115,12 +115,13 @@ const AuthState = (props: any) => {
 		setLoading();
 
 		try {
-			const res = await customAxios.post('/api/v1/fund', amount);
+			const res = await customAxios.put('/api/v1/fund', amount);
 			dispatch({
 				type: FUND_WALLET,
 				payload: res.data,
 			});
 		} catch (err: any) {
+			console.log(err.response);
 			dispatch({
 				type: ERROR,
 				payload: err.response.data.msg,

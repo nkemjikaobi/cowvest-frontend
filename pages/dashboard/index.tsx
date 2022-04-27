@@ -7,6 +7,7 @@ import FundWallet from 'components/modals/FundWallet';
 import SideBar from 'components/SideBar';
 import React, { useState, useContext } from 'react';
 import AuthContext from 'context/auth/AuthContext';
+import { useEffect } from 'react';
 
 const DashboardPage = () => {
 	const [fundWallet, setFundWallet] = useState<boolean>(false);
@@ -14,7 +15,12 @@ const DashboardPage = () => {
 	const [addExpense, setAddExpense] = useState<boolean>(false);
 
 	const authContext = useContext(AuthContext);
-	const { user } = authContext;
+	const { user, getBudgets, budgets } = authContext;
+
+	useEffect(() => {
+		getBudgets();
+		//eslint-disable-next-line
+	}, []);
 	return (
 		<BasePageLayout title='Dashboard'>
 			<div
@@ -39,8 +45,12 @@ const DashboardPage = () => {
 							count={user && user.balance}
 							isCurrency={true}
 						/>
-						<DetailCard name='Budgets' icon='FaUsers' count={5} />
-						<DetailCard name='Expenses' icon='FaUsers' count={12} />
+						<DetailCard
+							name='Budgets'
+							icon='FaUsers'
+							count={budgets ? budgets.length : 0}
+						/>
+						<DetailCard name='Expenses' icon='FaUsers' count={24} />
 					</div>
 					<div className='my-8'>
 						<button
