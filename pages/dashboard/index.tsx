@@ -14,12 +14,22 @@ const DashboardPage = () => {
 	const [fundWallet, setFundWallet] = useState<boolean>(false);
 	const [createBudget, setCreateBudget] = useState<boolean>(false);
 	const [addExpense, setAddExpense] = useState<boolean>(false);
+	const [budgetId, setBudgetId] = useState<string>('');
 
 	const authContext = useContext(AuthContext);
-	const { user, getBudgets, budgets, loading } = authContext;
+	const { user, getBudgets, budgets, loading, getAllExpenses, allExpenses } =
+		authContext;
+
+	const handleExpenseChange = (visibility: boolean, id: any = '') => {
+		setAddExpense(visibility);
+		if (id !== '') {
+			setBudgetId(id);
+		}
+	};
 
 	useEffect(() => {
 		getBudgets();
+		getAllExpenses();
 		//eslint-disable-next-line
 	}, []);
 	return (
@@ -51,7 +61,11 @@ const DashboardPage = () => {
 							icon='FaUsers'
 							count={budgets ? budgets.length : 0}
 						/>
-						<DetailCard name='Expenses' icon='FaUsers' count={24} />
+						<DetailCard
+							name='Expenses'
+							icon='FaUsers'
+							count={allExpenses ? allExpenses.length : 0}
+						/>
 					</div>
 					<div className='my-8'>
 						<button
@@ -79,14 +93,16 @@ const DashboardPage = () => {
 									Fetching budgets...
 								</>
 							) : budgets !== null && budgets.length === 0 ? (
-								<div className='text-xl ml2'>You have not created any budget..</div>
+								<div className='text-xl ml2'>
+									You have not created any budget..
+								</div>
 							) : (
 								budgets &&
 								budgets.map((budget: any) => (
 									<BudgetCard
 										budget={budget}
 										key={budget._id}
-										setAddExpense={setAddExpense}
+										handleExpenseChange={handleExpenseChange}
 									/>
 								))
 							)}
@@ -106,7 +122,7 @@ const DashboardPage = () => {
 			)}
 			{addExpense && (
 				<div className='fixed left-[30%] top-[30%] w-[40%]'>
-					<AddExpense setAddExpense={setAddExpense} />
+					<AddExpense budgetId={budgetId} setAddExpense={setAddExpense} />
 				</div>
 			)}
 		</BasePageLayout>

@@ -33,7 +33,7 @@ const AuthState = (props: any) => {
 		error: null,
 		message: null,
 		budgets: null,
-		expenses: null,
+		expenses: [],
 		allExpenses: null
 	};
 

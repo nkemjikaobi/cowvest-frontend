@@ -101,8 +101,11 @@ const AuthReducer = (state: any, action: any) => {
 		case ADD_EXPENSE:
 			return {
 				...state,
-				expenses: [action.payload, ...state.expenses],
+				expenses: [action.payload.expense, ...state.expenses],
 				message: action.payload.msg,
+				budgets: state.budgets.map((budget: any) =>
+					budget._id === action.payload._id ? action.payload : budget
+				),
 				loading: false,
 			};
 		case DELETE_BUDGET:

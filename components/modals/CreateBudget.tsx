@@ -23,7 +23,6 @@ const CreateBudget = ({ setCreateBudget }: any) => {
 	const authContext = useContext(AuthContext);
 	const {
 		createBudget,
-		user,
 		loading,
 		message,
 		error,

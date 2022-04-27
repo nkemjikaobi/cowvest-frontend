@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-const BudgetCard = ({ setAddExpense, budget }: any) => {
+const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 	const router = useRouter();
 	return (
 		<div className='bg-black drop-shadow-md rounded-lg p-5'>
@@ -43,7 +43,7 @@ const BudgetCard = ({ setAddExpense, budget }: any) => {
 				<div className='flex justify-between items-center'>
 					<button
 						className='border bg-purple-900 border-black px-5 py-3 rounded-lg hover:bg-blue-900'
-						onClick={() => setAddExpense(true)}
+						onClick={() => handleExpenseChange(true, budget._id)}
 					>
 						Add Expense
 					</button>
