@@ -18,6 +18,11 @@ const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 
 			<p className='text-4xl text-gray-500 my-4'>
 				{CURRENCIES.NAIRA}
+				{budget.start_price ? formatNumberWithCommas(budget.start_price) : 0}
+			</p>
+			<p className='text-4xl text-gray-500 my-4'>
+				<span className='text-base text-white'>Amount available: </span>
+				{CURRENCIES.NAIRA}
 				{budget.max_spending ? formatNumberWithCommas(budget.max_spending) : 0}
 			</p>
 			<div>

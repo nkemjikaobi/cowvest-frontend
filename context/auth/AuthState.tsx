@@ -34,7 +34,7 @@ const AuthState = (props: any) => {
 		message: null,
 		budgets: null,
 		expenses: [],
-		allExpenses: null
+		allExpenses: []
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -212,6 +212,7 @@ const AuthState = (props: any) => {
 				type: ADD_EXPENSE,
 				payload: res.data,
 			});
+			console.log(res.data);
 		} catch (err: any) {
 			dispatch({
 				type: ERROR,
