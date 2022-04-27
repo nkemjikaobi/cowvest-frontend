@@ -89,6 +89,7 @@ const AuthReducer = (state: any, action: any) => {
 				budgets: [action.payload, ...state.budgets],
 				message: action.payload.msg,
 				loading: false,
+				user: action.payload.user,
 			};
 		case ADD_EXPENSE:
 			return {
@@ -137,7 +138,7 @@ const AuthReducer = (state: any, action: any) => {
 			return {
 				...state,
 				error: null,
-				loading: false
+				loading: false,
 			};
 		case ERROR:
 			return {

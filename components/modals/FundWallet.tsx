@@ -38,7 +38,9 @@ const FundWallet = ({ setFundWallet }: any) => {
 			return toast.error('Provide an amount');
 		}
 		fundWallet({ amount });
-		setFundWallet(false);
+		setTimeout(() => {
+			setFundWallet(false);
+		}, 2000);
 	};
 
 	return (
