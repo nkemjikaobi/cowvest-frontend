@@ -24,6 +24,7 @@
 			"hooks/*": ["./hooks/*"],
 			"dto/*": ["./dto/*"],
 			"context/*": ["./context/*"],
+			"utils/*": ["./utils/*"],
 		}
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -1,8 +1,13 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import AuthState from "context/auth/AuthState";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+		<AuthState>
+			<Component {...pageProps} />
+		</AuthState>
+	);
 }
 
 export default MyApp

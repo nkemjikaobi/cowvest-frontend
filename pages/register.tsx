@@ -5,14 +5,43 @@ import { GiMoneyStack } from 'react-icons/gi';
 import { useRouter } from 'next/router';
 import { BsArrowRight } from 'react-icons/bs';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import AuthContext from 'context/auth/AuthContext';
+import { useEffect } from 'react';
+import { ImSpinner9 } from 'react-icons/im';
 
 const Register: NextPage = () => {
 	const router = useRouter();
 
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+
+	const authContext = useContext(AuthContext);
+	const { register, error, clearErrors, message, clearMessages, loading } =
+		authContext;
+
+	useEffect(() => {
+		if (error !== null && Array.isArray(error)) {
+			for (let i = 0; i < error.length; i++) {
+				toast.error(error[i].msg);
+			}
+			clearErrors();
+		} else if (error !== null) {
+			toast.error(error);
+			clearErrors();
+		}
+		//eslint-disable-next-line
+	}, [error]);
+
+	useEffect(() => {
+		if (message !== null) {
+			toast.success(message);
+			clearMessages();
+		}
+		//eslint-disable-next-line
+	}, [message]);
+
 	const [user, setUser] = useState({
 		first_name: '',
 		last_name: '',
@@ -38,6 +67,8 @@ const Register: NextPage = () => {
 		if (user.password !== passwordConfirm) {
 			return toast.error('Passwords do not match!');
 		}
+
+		register(user, router);
 	};
 	return (
 		<BasePageLayout title='Register'>
@@ -142,19 +173,28 @@ const Register: NextPage = () => {
 					)}
 				</div>
 				<div className='flex justify-center'>
-					<Link href='/'>
-						<a className='bg-black flex items-center justify-center p-5 w-1/3 rounded-md text-white mt-4 hover:bg-blue-500 hover:text-white hover:border hover:border-black'>
-							Sign In <BsArrowRight className='ml-4' />
-						</a>
-					</Link>
-				</div>
-				<div className='flex justify-center'>
 					<button
 						onClick={e => handleSubmit(e)}
 						className='bg-white flex items-center justify-center p-5 w-1/3 border border-black rounded-md text-black my-5 hover:bg-blue-500 hover:text-white '
 					>
-						Create Account
+						{loading ? (
+							<>
+								<ImSpinner9 className='animate-spin h-5 w-5 mr-3' />
+								Creating user...
+							</>
+						) : (
+							<>
+								Create Account <BsArrowRight className='ml-4' />
+							</>
+						)}
 					</button>
+				</div>
+				<div className='flex justify-center'>
+					<Link href='/'>
+						<a className='bg-black flex items-center justify-center p-5 w-1/3 rounded-md text-white mt-4 hover:bg-blue-500 hover:text-white hover:border hover:border-black'>
+							Sign In
+						</a>
+					</Link>
 				</div>
 			</div>
 		</BasePageLayout>

@@ -5,12 +5,40 @@ import { GiMoneyStack } from 'react-icons/gi';
 import { useRouter } from 'next/router';
 import { BsArrowRight } from 'react-icons/bs';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import AuthContext from 'context/auth/AuthContext';
+import { ImSpinner9 } from 'react-icons/im';
 
 const Home: NextPage = () => {
 	const router = useRouter();
 	const [showPassword, setShowPassword] = useState<boolean>(false);
+
+	const authContext = useContext(AuthContext);
+	const { login, loading, message, error, clearErrors, clearMessages } =
+		authContext;
+
+	useEffect(() => {
+		if (error !== null && Array.isArray(error)) {
+			for (let i = 0; i < error.length; i++) {
+				toast.error(error[i].msg);
+			}
+			clearErrors();
+		} else if (error !== null) {
+			toast.error(error);
+			clearErrors();
+		}
+		//eslint-disable-next-line
+	}, [error]);
+
+	useEffect(() => {
+		if (message !== null) {
+			toast.success(message);
+			clearMessages();
+		}
+		//eslint-disable-next-line
+	}, [message]);
+
 	const [user, setUser] = useState({
 		email: '',
 		password: '',
@@ -30,6 +58,8 @@ const Home: NextPage = () => {
 		if (hasEmptyFields) {
 			return toast.error('Please fill in all fields');
 		}
+
+		await login(user, router);
 	};
 	return (
 		<BasePageLayout title='Cowvest Home Page'>
@@ -84,7 +114,16 @@ const Home: NextPage = () => {
 						onClick={e => handleSubmit(e)}
 						className='bg-black flex items-center justify-center p-5 w-1/3 rounded-md text-white mt-4 hover:bg-blue-500 hover:text-white hover:border hover:border-black'
 					>
-						Sign In <BsArrowRight className='ml-4' />
+						{loading ? (
+							<>
+								<ImSpinner9 className='animate-spin h-5 w-5 mr-3' />
+								Logging in...
+							</>
+						) : (
+							<>
+								Sign In <BsArrowRight className='ml-4' />
+							</>
+						)}
 					</button>
 				</div>
 				<div className='flex justify-center'>
