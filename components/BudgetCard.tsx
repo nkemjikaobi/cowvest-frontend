@@ -39,7 +39,7 @@ const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 		//eslint-disable-next-line
 	}, [budget]);
 	return (
-		<div className='bg-black drop-shadow-md rounded-lg p-5'>
+		<div className='bg-black drop-shadow-md rounded-lg p-5 mb-4 md:mb-0'>
 			<div className='flex justify-between items-center'>
 				<p>{budget.name}</p>
 				<GiMoneyStack className='text-4xl' />
@@ -78,15 +78,15 @@ const BudgetCard = ({ handleExpenseChange, budget }: any) => {
 					)}
 				</div>
 				<hr className='mb-4' />
-				<div className='flex justify-between items-center'>
+				<div className='flex justify-between flex-col md:flex-row items-center'>
 					<button
-						className='border bg-purple-900 border-black px-5 py-3 rounded-lg hover:bg-blue-900'
+						className='border bg-purple-900 border-black px-5 py-3 rounded-lg hover:bg-blue-900 w-full md:w-2/5 mb-4 md:mb-0'
 						onClick={() => handleExpenseChange(true, budget._id)}
 					>
 						Add Expense
 					</button>
 					<button
-						className='border bg-purple-900 border-black px-5 py-3 rounded-lg hover:bg-blue-900'
+						className='border bg-purple-900 border-black px-5 py-3 rounded-lg hover:bg-blue-900 w-full md:w-2/5'
 						onClick={() => handleViewExpenses()}
 					>
 						View Expenses

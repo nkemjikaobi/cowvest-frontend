@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { GiMoneyStack } from 'react-icons/gi';
 import { useRouter } from 'next/router';
 import { BsArrowRight } from 'react-icons/bs';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useState, useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import AuthContext from 'context/auth/AuthContext';
@@ -14,7 +13,6 @@ import { ImSpinner9 } from 'react-icons/im';
 const Register: NextPage = () => {
 	const router = useRouter();
 
-	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
 	const authContext = useContext(AuthContext);
@@ -98,7 +96,7 @@ const Register: NextPage = () => {
 				</h4>
 				<div>
 					<input
-						className='bg-gray-200 mb-8 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
+						className='bg-gray-200 mb-8 p-5 border border-gray-300 text-black rounded-md w-2/3 md:w-1/3 focus:border-black focus:outline-black'
 						type='text'
 						placeholder='firstname'
 						name='first_name'
@@ -107,7 +105,7 @@ const Register: NextPage = () => {
 				</div>
 				<div>
 					<input
-						className='bg-gray-200 p-5 mb-8 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
+						className='bg-gray-200 p-5 mb-8 border border-gray-300 text-black rounded-md w-2/3 md:w-1/3 focus:border-black focus:outline-black'
 						type='text'
 						placeholder='lastname'
 						name='last_name'
@@ -116,7 +114,7 @@ const Register: NextPage = () => {
 				</div>
 				<div>
 					<input
-						className='bg-gray-200 p-5 mb-8 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
+						className='bg-gray-200 p-5 mb-8 border border-gray-300 text-black rounded-md w-2/3 md:w-1/3 focus:border-black focus:outline-black'
 						type='text'
 						placeholder='username'
 						name='username'
@@ -125,7 +123,7 @@ const Register: NextPage = () => {
 				</div>
 				<div>
 					<input
-						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black'
+						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-2/3 md:w-1/3 focus:border-black focus:outline-black'
 						type='email'
 						placeholder='email'
 						name='email'
@@ -134,48 +132,26 @@ const Register: NextPage = () => {
 				</div>
 				<div className='relative'>
 					<input
-						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black my-5'
-						type={`${showPassword ? 'text' : 'password'}`}
+						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-2/3 md:w-1/3 focus:border-black focus:outline-black my-5'
+						type='password'
 						placeholder='password'
 						name='password'
 						onChange={handleChange}
 					/>
-					{showPassword ? (
-						<AiOutlineEyeInvisible
-							className='absolute top-10 left-[950px] md:right-32  text-2xl text-black  cursor-pointer'
-							onClick={() => setShowPassword(false)}
-						/>
-					) : (
-						<AiOutlineEye
-							className='absolute top-10 left-[950px] md:right-32  text-2xl text-black  cursor-pointer'
-							onClick={() => setShowPassword(true)}
-						/>
-					)}
 				</div>
 				<div className='relative'>
 					<input
-						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-1/3 focus:border-black focus:outline-black my-5'
-						type={`${showPassword ? 'text' : 'password'}`}
+						className='bg-gray-200 p-5 border border-gray-300 text-black rounded-md w-2/3 md:w-1/3 focus:border-black focus:outline-black my-5'
+						type='password'
 						placeholder='confirm password'
 						name='password_confirm'
 						onChange={e => setPasswordConfirm(e.target.value)}
 					/>
-					{showPassword ? (
-						<AiOutlineEyeInvisible
-							className='absolute top-10 left-[950px] md:right-32  text-2xl text-black  cursor-pointer'
-							onClick={() => setShowPassword(false)}
-						/>
-					) : (
-						<AiOutlineEye
-							className='absolute top-10 left-[950px] md:right-32  text-2xl text-black  cursor-pointer'
-							onClick={() => setShowPassword(true)}
-						/>
-					)}
 				</div>
 				<div className='flex justify-center'>
 					<button
 						onClick={e => handleSubmit(e)}
-						className='bg-white flex items-center justify-center p-5 w-1/3 border border-black rounded-md text-black my-5 hover:bg-blue-500 hover:text-white '
+						className='bg-white flex items-center justify-center p-5 w-2/3 md:w-1/3 border border-black rounded-md text-black my-5 hover:bg-blue-500 hover:text-white '
 					>
 						{loading ? (
 							<>
@@ -191,7 +167,7 @@ const Register: NextPage = () => {
 				</div>
 				<div className='flex justify-center'>
 					<Link href='/'>
-						<a className='bg-black flex items-center justify-center p-5 w-1/3 rounded-md text-white mt-4 hover:bg-blue-500 hover:text-white hover:border hover:border-black'>
+						<a className='bg-black flex mb-4 items-center justify-center p-5 w-2/3 md:w-1/3 rounded-md text-white mt-4 hover:bg-blue-500 hover:text-white hover:border hover:border-black'>
 							Sign In
 						</a>
 					</Link>
