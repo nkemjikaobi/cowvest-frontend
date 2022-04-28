@@ -12,6 +12,7 @@
     "@ramonak/react-progress-bar": "^4.4.0",
     "@types/react-datepicker": "^4.4.1",
     "axios": "^0.26.1",
+    "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "next": "12.1.5",
     "react": "18.0.0",
