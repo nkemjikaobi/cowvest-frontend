@@ -48,7 +48,7 @@ const DashboardPage = () => {
 					fundWallet && 'blur-lg'
 				} ${createBudget && 'blur-lg'}`}
 			>
-				<div className='hidden md:block md:bg-black md:text-white md:h-[100vh]'>
+				<div className='hidden md:block md:bg-black md:text-white md:h-[300vh]'>
 					<SideBar />
 				</div>
 				<div className='col-span-5 ml-4 tablet:ml-0'>

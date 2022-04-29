@@ -5,6 +5,7 @@ export const DELETE_BUDGET = 'DELETE_BUDGET';
 export const GET_EXPENSES = 'GET_EXPENSES';
 export const GET_ALL_EXPENSES = 'GET_ALL_EXPENSES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const GET_HISTORY = 'GET_HISTORY';
 export const ERROR = 'ERROR';
 
 //THIS IS FOR AUTH

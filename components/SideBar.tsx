@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { MdLogout } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { GiMoneyStack, GiTakeMyMoney } from 'react-icons/gi';
+import { BsClockHistory } from 'react-icons/bs';
 import AuthContext from 'context/auth/AuthContext';
 
 const SideBar = () => {
@@ -35,6 +36,16 @@ const SideBar = () => {
 					}`}
 				>
 					<GiMoneyStack className='text-3xl mr-4' /> Expenses
+				</a>
+			</Link>
+			<Link href='/dashboard/history'>
+				<a
+					href='#'
+					className={`flex items-center mt-16 hover:text-[#498feb] cursor-pointer ${
+						router.pathname === '/dashboard/history' && 'text-[#498feb]'
+					}`}
+				>
+					<BsClockHistory className='text-3xl mr-4' /> History
 				</a>
 			</Link>
 			<button

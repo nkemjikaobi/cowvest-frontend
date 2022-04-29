@@ -23,7 +23,7 @@ const ExpensesPage = () => {
 	return (
 		<BasePageLayout title='Expenses'>
 			<div className='grid grid-cols-6 gap-4'>
-				<div className='hidden md:block md:bg-black md:text-white md:h-[100vh]'>
+				<div className='hidden md:block md:bg-black md:text-white md:h-[300vh]'>
 					<SideBar />
 				</div>
 

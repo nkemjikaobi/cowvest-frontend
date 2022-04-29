@@ -22,6 +22,7 @@ import {
 	ADD_EXPENSE,
 	DELETE_BUDGET,
 	GET_ALL_EXPENSES,
+	GET_HISTORY,
 } from '../types';
 
 const AuthState = (props: any) => {
@@ -35,6 +36,7 @@ const AuthState = (props: any) => {
 		budgets: null,
 		expenses: [],
 		allExpenses: [],
+		transactionHistory: [],
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -239,6 +241,24 @@ const AuthState = (props: any) => {
 		}
 	};
 
+	//Get Transaction History
+	const getTransactionHistory = async () => {
+		setLoading();
+
+		try {
+			const res = await customAxios.get('/api/v1/history');
+			dispatch({
+				type: GET_HISTORY,
+				payload: res.data,
+			});
+		} catch (err: any) {
+			dispatch({
+				type: ERROR,
+				payload: err.response.data.msg,
+			});
+		}
+	};
+
 	//Set loading
 	const setLoading = () => dispatch({ type: SET_LOADING });
 
@@ -266,6 +286,7 @@ const AuthState = (props: any) => {
 				budgets: state.budgets,
 				expenses: state.expenses,
 				allExpenses: state.allExpenses,
+				transactionHistory: state.transactionHistory,
 				register,
 				clearErrors,
 				clearMessages,
@@ -279,6 +300,7 @@ const AuthState = (props: any) => {
 				addExpense,
 				deleteBudget,
 				getAllExpenses,
+				getTransactionHistory,
 			}}
 		>
 			{props.children}
