@@ -18,7 +18,9 @@ import {
 	ERROR,
 	GET_ALL_EXPENSES,
 	GET_HISTORY,
+	FILTER_BY_DATE,
 } from '../types';
+import moment from 'moment-timezone';
 
 const AuthReducer = (state: any, action: any) => {
 	switch (action.type) {
@@ -83,6 +85,18 @@ const AuthReducer = (state: any, action: any) => {
 			return {
 				...state,
 				transactionHistory: action.payload,
+				loading: false,
+			};
+		case FILTER_BY_DATE:
+			return {
+				...state,
+				filtered: state.transactionHistory.filter(
+					(history: any) =>
+						moment(history.date).format('MMMM Do YYYY') >=
+							moment(action.payload.startDate).format('MMMM Do YYYY') &&
+						moment(history.date).format('MMMM Do YYYY') <=
+							moment(action.payload.endDate).format('MMMM Do YYYY')
+				),
 				loading: false,
 			};
 		case GET_EXPENSES:

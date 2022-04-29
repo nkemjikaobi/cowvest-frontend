@@ -23,6 +23,7 @@ import {
 	DELETE_BUDGET,
 	GET_ALL_EXPENSES,
 	GET_HISTORY,
+	FILTER_BY_DATE,
 } from '../types';
 
 const AuthState = (props: any) => {
@@ -37,6 +38,7 @@ const AuthState = (props: any) => {
 		expenses: [],
 		allExpenses: [],
 		transactionHistory: [],
+		filtered: null,
 	};
 
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -214,7 +216,6 @@ const AuthState = (props: any) => {
 				type: ADD_EXPENSE,
 				payload: res.data,
 			});
-			console.log(res.data);
 		} catch (err: any) {
 			dispatch({
 				type: ERROR,
@@ -259,6 +260,15 @@ const AuthState = (props: any) => {
 		}
 	};
 
+	//Filter transactions by date
+	const filterTransactions = async (startDate: any, endDate: any) => {
+		setLoading();
+		dispatch({
+			type: FILTER_BY_DATE,
+			payload: { startDate, endDate },
+		});
+	};
+
 	//Set loading
 	const setLoading = () => dispatch({ type: SET_LOADING });
 
@@ -287,6 +297,7 @@ const AuthState = (props: any) => {
 				expenses: state.expenses,
 				allExpenses: state.allExpenses,
 				transactionHistory: state.transactionHistory,
+				filtered: state.filtered,
 				register,
 				clearErrors,
 				clearMessages,
@@ -301,6 +312,7 @@ const AuthState = (props: any) => {
 				deleteBudget,
 				getAllExpenses,
 				getTransactionHistory,
+				filterTransactions,
 			}}
 		>
 			{props.children}

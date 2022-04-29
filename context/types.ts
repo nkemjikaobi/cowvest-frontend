@@ -6,6 +6,7 @@ export const GET_EXPENSES = 'GET_EXPENSES';
 export const GET_ALL_EXPENSES = 'GET_ALL_EXPENSES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const GET_HISTORY = 'GET_HISTORY';
+export const FILTER_BY_DATE = 'FILTER_BY_DATE';
 export const ERROR = 'ERROR';
 
 //THIS IS FOR AUTH
