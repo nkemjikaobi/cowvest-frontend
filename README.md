@@ -1,3 +1,3 @@
 ### Cowvest Frontend
 
-LIVE URL => https://cowvest-frontend.vercel.app
+- currently in maintenance mode, will be back up soon
