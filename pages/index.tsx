@@ -60,7 +60,7 @@ const Home: NextPage = () => {
 		await login(user, router);
 	};
 	return (
-		<BasePageLayout title='Cowvest Home Page'>
+		<BasePageLayout title='MyFinance Home Page'>
 			<Toaster position='top-right' />
 			<nav className='flex items-center justify-between mt-12 px-5 md:px-20'>
 				<div
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
 					onClick={() => router.push('/')}
 				>
 					<GiMoneyStack className='text-3xl md:text-4xl' />
-					<h3 className='ml-4 text-2xl md:text-3xl font-bold'>CowVest</h3>
+					<h3 className='ml-4 text-2xl md:text-3xl font-bold'>MyFinance</h3>
 				</div>
 			</nav>
 			<div className='container mx-auto text-center'>

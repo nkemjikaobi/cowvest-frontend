@@ -29,7 +29,7 @@ const BasePageLayout = ({ title, children }: any) => {
 };
 
 BasePageLayout.defaultProps = {
-	title: 'CowVest',
+	title: 'MyFinance',
 };
 
 export default BasePageLayout;

@@ -15,7 +15,7 @@ const SideBar = () => {
 		<div className='px-7 py-24'>
 			<Link href='/dashboard'>
 				<a href='#' className='text-2xl font-bold'>
-					CowVest
+					MyFinance
 				</a>
 			</Link>
 			<Link href='/dashboard'>

@@ -77,7 +77,7 @@ const Register: NextPage = () => {
 					onClick={() => router.push('/')}
 				>
 					<GiMoneyStack className='text-3xl md:text-4xl' />
-					<h3 className='ml-4 text-2xl md:text-3xl font-bold'>CowVest</h3>
+					<h3 className='ml-4 text-2xl md:text-3xl font-bold'>MyFinance</h3>
 				</div>
 				<ul className='flex items-center justify-between w-1/8'>
 					<li className='text-base md:text-xl hover:text-blue-500'>
